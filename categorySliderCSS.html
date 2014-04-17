@@ -1,0 +1,213 @@
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+
+		body {
+			background-color: rgba(40,40,38,1);
+			padding:0;
+			margin: 0;
+		}
+
+		.options-container {
+			position: fixed;
+			bottom: 0;
+			margin: 0 auto;
+			background-color: rgba(50,50,46,1);
+			height: 50px;
+			width: 100%;
+
+
+		}
+
+		.options {
+			margin: 0 auto;
+			position: relative;
+			width: 800px;
+
+		}
+
+		.options div {
+			display: inline-block;
+			font-weight: bold;
+			line-height: 50px;
+			font-family: sans-serif;
+			text-align: center;
+			margin: 0 10px;
+		}
+		.options-two {
+			color: rgba(240,150,0,1);
+		}
+		.options-three {
+			color: rgba(250,180,50,1);
+		}
+		.options-four {
+			color: rgba(250,230,15,1);
+		}
+
+		.container{
+			margin: auto;
+			width: 800px;
+			margin-top: 200px;
+			white-space: nowrap;
+			max-height: 420px;
+			background-color: rgba(250,230,15,1)
+			overflow: hidden;
+		}
+
+		.test-block {
+			-webkit-transform: translate3d(0, 0, 0);
+			transition: all 0.4s;
+			display: inline-block;
+			position: relative;
+			height: 280px;
+			width: 16%;
+			vertical-align: top;
+			/*opacity: 0.8;*/
+
+			
+		}
+		.one {
+			background-color: rgba(230,80,25,1);
+		}
+		.two {
+			background-color: rgba(240,150,0,1);
+		}
+		.three{
+			background-color: rgba(250,180,50,1);
+		}
+		.four{
+			background-color: rgba(250,230,15,1);
+		}
+
+		.focus {
+			/*transition: opacity 0.3s;*/
+			/*opacity: 1;*/
+		}
+
+		
+		.small.total2 {
+			-webkit-transform: translate3d(0, 0, 0);
+			width: 45%;
+		}
+
+		.focus.total2 {
+			 width: 55%;
+		}
+
+		.small.total3 {
+			-webkit-transform: translate3d(0, 0, 0);
+			width: 23%;
+		}
+
+		.focus.total3 {
+			 width: 54%;
+		}
+
+		.small.total4 {
+			-webkit-transform: translate3d(0, 0, 0);
+			width: 16%;
+		}
+
+		.focus.total4 {
+			 width: 53%;
+
+		}
+
+
+
+
+
+
+	</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="test-block total4 one on focus">
+</div><div class="test-block total4 two">
+</div><div class="test-block total4 three">
+</div><div class="test-block total4 four"></div>
+
+</div>
+
+
+</div>
+
+<div class="options-container">
+	<div class="options">
+		<div class="options-two">
+			Two
+		</div>
+		<div class="options-three">
+			Three
+		</div>
+		<div class="options-four">
+			Four
+		</div>
+
+	</div>
+</div>
+
+
+<script type="text/javascript" src="./jQuery1.7.js"></script>
+<script type="text/javascript">
+(function(e){e.fn.hoverIntent=function(t,n,r){var i={interval:100,sensitivity:7,timeout:0};if(typeof t==="object"){i=e.extend(i,t)}else if(e.isFunction(n)){i=e.extend(i,{over:t,out:n,selector:r})}else{i=e.extend(i,{over:t,out:t,selector:n})}var s,o,u,a;var f=function(e){s=e.pageX;o=e.pageY};var l=function(t,n){n.hoverIntent_t=clearTimeout(n.hoverIntent_t);if(Math.abs(u-s)+Math.abs(a-o)<i.sensitivity){e(n).off("mousemove.hoverIntent",f);n.hoverIntent_s=1;return i.over.apply(n,[t])}else{u=s;a=o;n.hoverIntent_t=setTimeout(function(){l(t,n)},i.interval)}};var c=function(e,t){t.hoverIntent_t=clearTimeout(t.hoverIntent_t);t.hoverIntent_s=0;return i.out.apply(t,[e])};var h=function(t){var n=jQuery.extend({},t);var r=this;if(r.hoverIntent_t){r.hoverIntent_t=clearTimeout(r.hoverIntent_t)}if(t.type=="mouseenter"){u=n.pageX;a=n.pageY;e(r).on("mousemove.hoverIntent",f);if(r.hoverIntent_s!=1){r.hoverIntent_t=setTimeout(function(){l(n,r)},i.interval)}}else{e(r).off("mousemove.hoverIntent",f);if(r.hoverIntent_s==1){r.hoverIntent_t=setTimeout(function(){c(n,r)},i.timeout)}}};return this.on({"mouseenter.hoverIntent":h,"mouseleave.hoverIntent":h},i.selector)}})(jQuery)
+
+	var expand = function(){
+		$('.focus').removeClass('focus');
+		$('.test-block').addClass('small');
+		$(this).addClass('focus');
+	};
+	var collapse = function(){
+		// $('.focus').removeClass('focus');
+		// $('.on').addClass('focus');
+	};
+
+	$('.test-block').hoverIntent(expand,collapse);
+	// $('.test-block').hoverIntent(expand,collapse);
+	$('.test-block').on('click', function(){
+		$('.on').removeClass('on');
+		$(this).addClass('on');
+
+	});
+
+	$('.container').on('mouseleave', function(){ 
+		$('.test-block').removeClass('focus');
+		$('.on').addClass('focus');
+	});
+
+	$('.options-two').on('click', function(){
+		$('.test-block.four').hide();
+		$('.test-block.three').hide();
+
+		$('.test-block').removeClass('total3');
+		$('.test-block').removeClass('total4');
+		$('.test-block').addClass('total2');
+
+	});
+
+	$('.options-three').on('click', function(){
+		$('.test-block.four').hide();
+		$('.test-block.three').show();
+
+		$('.test-block').removeClass('total2');
+		$('.test-block').removeClass('total4');
+		$('.test-block').addClass('total3');
+	});
+
+	$('.options-four').on('click', function(){
+		$('.test-block.three').show();
+		$('.test-block.four').show();
+
+		$('.test-block').removeClass('total2');
+		$('.test-block').removeClass('total3');
+		$('.test-block').addClass('total4');
+	});
+	
+
+
+</script>
+</body>
+</html>
